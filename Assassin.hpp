@@ -3,15 +3,13 @@
 namespace coup
 {
 
-    class Assassin : Player
+    class Assassin : public Player
     {
-        private:
-
-
-        public:
-            Assassin(Game& game,string name);
-        
-
+    private:
+    public:
+        Assassin(Game &game, std::string name);
+        void assassinate(Player &player);
+                std::string role() override;
 
     };
 

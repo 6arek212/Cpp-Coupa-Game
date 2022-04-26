@@ -6,6 +6,8 @@
  */
 
 #include "Player.hpp"
+#include "Game.hpp"
+
 #include "Duke.hpp"
 #include "Assassin.hpp"
 #include "Ambassador.hpp"
@@ -107,6 +109,7 @@ int main() {
 	players = game_1.players();
 	/*
 		prints:
+		Moshe
 		Yossi
 		Meirav
 		Reut

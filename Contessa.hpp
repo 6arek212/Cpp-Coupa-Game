@@ -1,18 +1,16 @@
 #include "Player.hpp"
+#include <string>
 
 namespace coup
 {
 
-    class Contessa : Player
+    class Contessa : public Player
     {
-        private:
-
-
-        public:
-            Contessa(Game &game,string name);
-        
-
-
+    private:
+    public:
+        Contessa(Game &game, std::string name) : Player(game, name){};
+        std::string role() override;
+        void block(const Player &player);
     };
 
 }

@@ -1,36 +1,31 @@
+#pragma once
+
 #include <string>
 #include <vector>
+#include "Game.hpp"
 
 namespace coup
 {
 
     class Player
     {
-    private:
+    protected:
         Game *game;
-        string _name;
+        std::string _name;
         int _coins;
+        Action lastAction;
+
+    protected:
+        void checkTurn();
 
     public:
-        Player(Game &game, string name);
-        void income();
-        void foreign_aid();
-        void coup();
-        int coins();
-        int role();
-
+        Player(Game &game, std::string name);
+        virtual void income();
+        virtual void foreign_aid();
+        virtual void coup(const Player &player);
+        virtual int coins();
+        virtual std::string role() = 0;
         friend std::ostream &operator<<(std::ostream &out, const Player &player);
-    };
-
-    class Game
-    {
-    private:
-        std::vector<Player> _players;
-        int turn = -1;
-
-    public:
-        void addPlayer(Player player);
-        vector<Player> players();
     };
 
 }

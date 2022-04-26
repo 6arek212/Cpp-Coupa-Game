@@ -3,16 +3,13 @@
 namespace coup
 {
 
-    class Ambassador : Player
+    class Ambassador : public Player
     {
-        private:
-
-
-        public:
-            Ambassador(Game &game,string name);
-        
-
-
+    private:
+    public:
+        Ambassador(Game &game, std::string name);
+        void transfer(Player &player1, Player &player2);
+        std::string role() override;
     };
 
 }

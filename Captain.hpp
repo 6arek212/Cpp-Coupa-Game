@@ -3,16 +3,14 @@
 namespace coup
 {
 
-    class Captain : Player
+    class Captain : public Player
     {
-        private:
-
-
-        public:
-            Captain(Game &game,string name);
-        
-
-
+    private:
+    public:
+        Captain(Game &game, std::string name);
+        void steal(Player &player);
+        std::string role() override;
+        void block(const Player &player);
     };
 
 }
