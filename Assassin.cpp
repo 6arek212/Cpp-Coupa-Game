@@ -1,7 +1,18 @@
 #include "Assassin.hpp"
-using namespace coup;
 
-std::string role()
+namespace coup
 {
-    return "Assassin";
+    std::string Assassin::role()
+    {
+        return "Assassin";
+    }
+
+    void Assassin::assassinate(Player &player)
+    {
+        checkTurn();
+        checkMustCoup();
+        game->deletePlayer(player.playerIndex);
+        player.setIsCouped(true);
+        updateIndexs();
+    }
 }

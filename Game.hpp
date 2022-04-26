@@ -2,19 +2,22 @@
 
 #include <vector>
 #include <map>
+#include <string>
 
 namespace coup
 {
     enum Action
     {
+        NONE,
         INCOME,
         FOREIGN_AID,
         COUP,
         TAX,
         ASSASSINATE,
         STEAL,
-        EXCHANGE
+        TRANSFER
     };
+
 
     class Game
     {
@@ -23,9 +26,11 @@ namespace coup
         int _turn = -1;
 
     public:
-        void deletePlayer(std::string player);
-        void addPlayer(std::string player);
+        int addPlayer(std::string player);
+        void deletePlayer(int index);
+        void revivePlayer(std::string player);
         void endTurn();
+        int getTurnIndex();
         std::vector<std::string> players() const;
         std::string turn();
         std::string winner() const;

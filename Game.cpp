@@ -1,48 +1,65 @@
 #include "Game.hpp"
 #include <iostream>
 #include <algorithm>
-using namespace coup;
 
-void Game::addPlayer(std::string player)
+namespace coup
 {
-    _players.push_back(player);
-    if (_turn == -1)
+    int Game::getTurnIndex()
     {
-        _turn = 0;
-    }
-}
-
-void Game::deletePlayer(std::string player)
-{
-    _players.erase(std::remove(_players.begin(), _players.end(), player), _players.end());
-}
-
-std::vector<std::string> Game::players() const
-{
-    return this->_players;
-}
-
-std::string Game::turn()
-{
-    if (this->_turn == -1)
-    {
-        throw "Error no players";
+        return this->_turn;
     }
 
-    return _players[(size_t)_turn];
-}
-
-std::string Game::winner() const
-{
-    if (_players.size() > 1)
+    int Game::addPlayer(std::string player)
     {
-        throw "Error the game is still live";
+        _players.push_back(player);
+        if (_turn == -1)
+        {
+            _turn = 0;
+        }
+        return _players.size() - 1;
     }
 
-    return _players[0];
-}
+    void Game::deletePlayer(int index)
+    {
+        _players.erase(_players.begin() + index);
+    }
 
-void Game::endTurn()
-{
-    _turn = (_turn + 1) % (int)_players.size();
+    void Game::revivePlayer(std::string player)
+    {
+    }
+
+    std::vector<std::string> Game::players() const
+    {
+        return this->_players;
+    }
+
+    std::string Game::turn()
+    {
+        if (this->_turn == -1)
+        {
+            throw "Error no players";
+        }
+
+        return _players[(size_t)_turn];
+    }
+
+    std::string Game::winner() const
+    {
+        if (_turn == -1)
+        {
+            throw "Error the game has not started";
+        }
+
+        if (_players.size() > 1)
+        {
+            throw "Error the game is still live";
+        }
+
+        return _players[0];
+    }
+
+    void Game::endTurn()
+    {
+        _turn = (_turn + 1) % (int)_players.size();
+    }
 }
