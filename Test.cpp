@@ -27,15 +27,6 @@ void printPlayers(vector<Player *> args)
     cout << "----------------------" << endl;
 }
 
-TEST_CASE("Duplicate players ")
-{
-    Game game;
-    Captain captin{game, "Tarik"};
-    Ambassador ambassador{game, "Wissam"};
-    Contessa contessa{game, "Noa"};
-    vector<string> players = game.players();
-}
-
 TEST_CASE("Check Actions Contessa/Ambassador/Captain")
 {
     Game game;

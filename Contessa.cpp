@@ -14,6 +14,11 @@ namespace coup
         {
             throw std::invalid_argument("Error , you cant block your self");
         }
+        if (game->isItMyTurn(player))
+        {
+            throw std::invalid_argument("Cant block him !");
+        }
+
         if (player.getActionOp().action != ASSASSINATE)
         {
             throw std::invalid_argument("Contessa can only block Assassiantion !" + role() + " " + _name);

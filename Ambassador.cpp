@@ -27,6 +27,10 @@ namespace coup
         {
             throw std::invalid_argument("Error , you cant block your self");
         }
+        if (game->isItMyTurn(player))
+        {
+            throw std::invalid_argument("Cant block him !");
+        }
         if (player.getActionOp().action != STEAL)
         {
             throw std::invalid_argument("Error Ambassador can only block Steal " + role() + " " + _name);

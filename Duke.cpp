@@ -22,6 +22,12 @@ void Duke::block(Player &player)
     {
         throw std::invalid_argument("Error , you cant block your self");
     }
+
+    if (game->isItMyTurn(player))
+    {
+        throw std::invalid_argument("Cant block him !");
+    }
+
     // blocks the forign aid action !
     if (player.getActionOp().action != FOREIGN_AID)
     {
