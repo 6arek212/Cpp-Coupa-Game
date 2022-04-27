@@ -21,7 +21,7 @@ namespace coup
         ActionOp lastAction;
 
     protected:
-        void checkMustCoup();
+        void checkMustCoup() const;
 
     public:
         Player(Game &game, std::string &name);
