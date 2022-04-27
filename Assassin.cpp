@@ -8,7 +8,7 @@ namespace coup
         return "Assassin";
     }
 
-    void Assassin::coup(Player &player) 
+    void Assassin::coup(Player &player)
     {
         checkTurn();
         if (coins() < 3)

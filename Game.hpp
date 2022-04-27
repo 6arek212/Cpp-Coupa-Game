@@ -33,6 +33,7 @@ namespace coup
         }
     };
 
+
     class Game
     {
     private:

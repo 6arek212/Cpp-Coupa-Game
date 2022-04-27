@@ -6,7 +6,6 @@
 
 namespace coup
 {
-
     class Player
     {
     protected:

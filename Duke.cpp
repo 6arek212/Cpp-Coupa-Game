@@ -5,6 +5,7 @@ using namespace coup;
 void Duke::tax()
 {
     checkTurn();
+    checkMustCoup();
     _coins += 3;
     game->endTurn(this);
 }
