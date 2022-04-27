@@ -13,6 +13,7 @@ namespace coup
         checkMustCoup();
         player.coins() -= 2;
         coins() += 2;
+        lastAction = ActionOp(STEAL, &player);
         game->endTurn(this);
     }
 

@@ -8,7 +8,7 @@ namespace coup
 
     void Game::hasPlayers() const
     {
-        if (_players.size() == 0)
+        if (_players.empty())
         {
             throw "Error no players !";
         }
@@ -22,7 +22,6 @@ namespace coup
     void Game::couped(Player *p2)
     {
         Player *temp = _players[(size_t)_turn];
-        int index = _turn;
 
         _players.erase(std::remove(_players.begin(), _players.end(), p2), _players.end());
 
@@ -35,7 +34,6 @@ namespace coup
     void Game::uncoup(Player *p2)
     {
         Player *temp = _players[(size_t)_turn];
-        int index = _turn;
 
         _players.push_back(p2);
         std::sort(_players.begin(), _players.end(), compareFun);
@@ -49,19 +47,17 @@ namespace coup
     void Game::addPlayer(Player &player)
     {
         if (_turn == -1)
+        {
             _turn = 0;
+        }
         _players.push_back(&player);
-        player.setPlayerIndex(_players.size() - 1);
+        player.setPlayerIndex((int)(_players.size() - 1));
     }
 
     bool Game::isItMyTurn(Player &player)
     {
         hasPlayers();
-        if (_players[(size_t)_turn] != &player)
-        {
-            return false;
-        }
-        return true;
+        return _players[(size_t)_turn] == &player;
     }
 
     void Game::endTurn(Player *p)

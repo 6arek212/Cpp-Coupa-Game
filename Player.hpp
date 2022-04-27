@@ -8,6 +8,11 @@ namespace coup
 {
     class Player
     {
+    public:
+        static const int tenCoins = 10;
+        static const int sevenCoins = 7;
+        static const int threeCoins = 3;
+
     protected:
         Game *game;
         std::string _name;
@@ -19,7 +24,7 @@ namespace coup
         void checkMustCoup();
 
     public:
-        Player(Game &game, std::string name);
+        Player(Game &game, std::string &name);
         void income();
         void foreign_aid();
         int &coins();

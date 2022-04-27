@@ -13,11 +13,12 @@ namespace coup
         return out;
     }
 
-    Player::Player(Game &game, std::string name)
+    Player::Player(Game &game, std::string &name)
     {
         this->_coins = 0;
         this->_name = name;
         this->game = &game;
+        this->playerIndex = -1;
         this->game->addPlayer(*this);
     }
 
@@ -32,7 +33,7 @@ namespace coup
 
     void Player::checkMustCoup()
     {
-        if (this->_coins >= 10)
+        if (this->_coins >= tenCoins)
         {
             throw invalid_argument("You have more than 10 coins you must coup ! " + role());
         }
@@ -59,11 +60,11 @@ namespace coup
     void Player::coup(Player &player)
     {
         checkTurn();
-        if (_coins < 7)
+        if (_coins < sevenCoins)
         {
             throw invalid_argument("Error cant coup , you need at least 7 coins ! " + role() + " " + _name);
         }
-        _coins -= 7;
+        _coins -= sevenCoins;
         lastAction = ActionOp(COUP, &player);
         game->endTurn(this);
     }

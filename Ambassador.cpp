@@ -17,6 +17,7 @@ namespace coup
         }
         player1.coins()--;
         player2.coins()++;
+        lastAction = ActionOp(TRANSFER, &player1, &player2);
         game->endTurn(this);
     }
 

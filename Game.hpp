@@ -25,14 +25,15 @@ namespace coup
     public:
         Action action;
         Player *p1;
-    
-        ActionOp(Action action = NONE, Player *p1 = NULL)
+        Player *p2;
+
+        ActionOp(Action action = NONE, Player *p1 = NULL, Player *p2 = NULL)
         {
             this->action = action;
             this->p1 = p1;
+            this->p2 = p2;
         }
     };
-
 
     class Game
     {

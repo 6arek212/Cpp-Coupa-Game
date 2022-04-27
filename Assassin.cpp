@@ -11,7 +11,7 @@ namespace coup
     void Assassin::coup(Player &player)
     {
         checkTurn();
-        if (coins() < 3)
+        if (coins() < threeCoins)
         {
             throw std::invalid_argument("Error Assassin can coup with 3 coins " + _name);
         }

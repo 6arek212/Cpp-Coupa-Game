@@ -7,6 +7,7 @@ void Duke::tax()
     checkTurn();
     checkMustCoup();
     _coins += 3;
+    lastAction = ActionOp(TAX);
     game->endTurn(this);
 }
 
