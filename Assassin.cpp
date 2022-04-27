@@ -3,13 +3,17 @@
 
 namespace coup
 {
-    std::string Assassin::role()
+    std::string Assassin::role() const
     {
         return "Assassin";
     }
 
     void Assassin::coup(Player &player)
     {
+        if (this == &player)
+        {
+            throw std::invalid_argument("Error , you cant coup your self");
+        }
         checkTurn();
         if (coins() < threeCoins)
         {

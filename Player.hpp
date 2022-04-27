@@ -29,7 +29,7 @@ namespace coup
         void foreign_aid();
         int &coins();
         virtual void coup(Player &player);
-        virtual std::string role() = 0;
+        virtual std::string role() const { return "Default Role"; };
         friend std::ostream &operator<<(std::ostream &out, const Player &player);
 
         int getPlayerIndex() const { return this->playerIndex; }

@@ -2,7 +2,7 @@
 #include <iostream>
 namespace coup
 {
-    std::string Ambassador::role()
+    std::string Ambassador::role() const
     {
         return "Ambassador";
     }
@@ -23,6 +23,10 @@ namespace coup
 
     void Ambassador::block(Player &player)
     {
+        if (this == &player)
+        {
+            throw std::invalid_argument("Error , you cant block your self");
+        }
         if (player.getActionOp().action != STEAL)
         {
             throw std::invalid_argument("Error Ambassador can only block Steal " + role() + " " + _name);

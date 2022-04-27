@@ -8,8 +8,9 @@ namespace coup
 {
     std::ostream &operator<<(std::ostream &out, const Player &player)
     {
-        out << "Player: name: " << player._name << " "
-            << "coins : " << player._coins << std::endl;
+        out << "Player: name: " << player._name << ", "
+            << "coins : " << player._coins << ", "
+            << "role : " << player.role() << std::endl;
         return out;
     }
 
@@ -59,11 +60,16 @@ namespace coup
 
     void Player::coup(Player &player)
     {
+        if (this == &player)
+        {
+            throw std::invalid_argument("Error , you cant coup your self");
+        }
         checkTurn();
         if (_coins < sevenCoins)
         {
             throw invalid_argument("Error cant coup , you need at least 7 coins ! " + role() + " " + _name);
         }
+        game->couped(&player);
         _coins -= sevenCoins;
         lastAction = ActionOp(COUP, &player);
         game->endTurn(this);

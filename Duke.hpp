@@ -12,7 +12,7 @@ namespace coup
     public:
         Duke(Game &game, std::string name) : Player(game, name){};
         void tax();
-        std::string role() override;
+        std::string role() const override;
         void block(Player &player);
     };
 

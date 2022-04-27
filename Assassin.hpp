@@ -10,7 +10,7 @@ namespace coup
     private:
     public:
         Assassin(Game &game, std::string name) : Player(game, name){};
-        std::string role() override;
+        std::string role() const  override;
         void coup(Player &player) override;
     };
 

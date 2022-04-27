@@ -40,6 +40,7 @@ namespace coup
     private:
         std::vector<Player *> _players;
         int _turn = -1;
+        bool hasStarted = false;
 
     public:
         void addPlayer(Player &player);
@@ -48,12 +49,10 @@ namespace coup
         void couped(Player *p2);
         void uncoup(Player *p2);
         void hasPlayers() const;
-
+        
         std::vector<std::string> players() const;
         std::string turn();
         std::string winner() const;
     };
 
 }
-
-

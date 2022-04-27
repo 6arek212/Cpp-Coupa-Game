@@ -24,10 +24,9 @@ namespace coup
         Player *temp = _players[(size_t)_turn];
 
         _players.erase(std::remove(_players.begin(), _players.end(), p2), _players.end());
-
-        if (temp != _players[(size_t)_turn])
+        if (temp != _players[(size_t)_turn] || _turn >= _players.size())
         {
-            _turn = (--_turn) % (int)_players.size();
+            _turn--;
         }
     }
 
@@ -46,6 +45,11 @@ namespace coup
 
     void Game::addPlayer(Player &player)
     {
+        if (this->hasStarted)
+        {
+            throw std::invalid_argument("Cant add playes, the game already started !");
+        }
+
         if (_turn == -1)
         {
             _turn = 0;
@@ -65,6 +69,11 @@ namespace coup
         p->checkTurn();
         hasPlayers();
         _turn = (_turn + 1) % (int)_players.size();
+
+        if (!hasStarted)
+        {
+            hasStarted = true;
+        }
     }
 
     std::vector<std::string> Game::players() const

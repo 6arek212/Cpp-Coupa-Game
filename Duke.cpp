@@ -11,13 +11,17 @@ void Duke::tax()
     game->endTurn(this);
 }
 
-std::string Duke::role()
+std::string Duke::role() const
 {
     return "Duke";
 }
 
 void Duke::block(Player &player)
 {
+    if (this == &player)
+    {
+        throw std::invalid_argument("Error , you cant block your self");
+    }
     // blocks the forign aid action !
     if (player.getActionOp().action != FOREIGN_AID)
     {
