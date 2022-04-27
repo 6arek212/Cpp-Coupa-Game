@@ -1,54 +1,86 @@
 #include "Player.hpp"
 #include <string>
-using namespace coup;
+#include <iostream>
+
 using namespace std;
 
-Player::Player(Game &game, std::string name)
+namespace coup
 {
-    this->_name = name;
-    this->game = &game;
-    game.addPlayer(name);
-}
-
-void Player::checkTurn()
-{
-    if (this->game->turn() != this->_name)
+    std::ostream &operator<<(std::ostream &out, const Player &player)
     {
-        throw "Error its not your turn";
-    }
-}
-
-void Player::income()
-{
-    checkTurn();
-    this->_coins++;
-    lastAction = INCOME;
-    game->endTurn();
-}
-
-void Player::foreign_aid()
-{
-    checkTurn();
-    this->_coins += 2;
-    lastAction = FOREIGN_AID;
-    game->endTurn();
-}
-
-void Player::coup(const Player &player)
-{
-    checkTurn();
-    if (_coins < 7)
-    {
-        throw "Error cant coup , you need at least 7 coins !";
+        out << "Player: name: " << player._name << " "
+            << "coins : " << player._coins << std::endl;
+        return out;
     }
 
-    _coins -= 7;
-    game->deletePlayer(player._name);
-    lastAction = COUP;
-    game->endTurn();
-}
+    Player::Player(Game &game, std::string name)
+    {
+        this->_coins = 0;
+        this->_name = name;
+        this->game = &game;
+        this->game->addPlayer(*this);
+    }
 
-int Player::coins()
-{
-    return _coins;
+    void Player::checkTurn()
+    {
+
+        if (!game->isItMyTurn(*this))
+        {
+            throw invalid_argument("Error its not your turn " + role() + " " + _name);
+        }
+    }
+
+    void Player::checkMustCoup()
+    {
+        if (this->_coins >= 10)
+        {
+            throw invalid_argument("You have more than 10 coins you must coup ! " + role());
+        }
+    }
+
+    void Player::income()
+    {
+        checkTurn();
+        checkMustCoup();
+        this->_coins++;
+        lastAction = ActionOp(INCOME);
+        game->endTurn(this);
+    }
+
+    void Player::foreign_aid()
+    {
+        checkTurn();
+        checkMustCoup();
+        this->_coins += 2;
+        lastAction = ActionOp(FOREIGN_AID);
+        game->endTurn(this);
+    }
+
+    void Player::coup(Player &player)
+    {
+        checkTurn();
+        if (_coins < 7)
+        {
+            throw invalid_argument("Error cant coup , you need at least 7 coins ! " + role() + " " + _name);
+        }
+        _coins -= 7;
+        lastAction = ActionOp(COUP, &player);
+        game->endTurn(this);
+    }
+
+    int &Player::coins()
+    {
+        return _coins;
+    }
+
+    const ActionOp &Player::getActionOp() const
+    {
+        return lastAction;
+    }
+
+    void Player::initAction()
+    {
+        this->lastAction = ActionOp();
+    }
+
 }

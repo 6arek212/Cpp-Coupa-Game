@@ -21,7 +21,8 @@ using namespace coup;
 #include <vector>
 using namespace std;
 
-int main() {
+int main()
+{
 
 	Game game_1{};
 
@@ -37,13 +38,14 @@ int main() {
 
 	/*
 		prints:
-		Moshe
-		Yossi
-		Meirav
-		Reut
-		Gilad
+			Moshe
+			Yossi
+			Meirav
+			Reut
+			Gilad
 	*/
-	for(string name : players){
+	for (string name : players)
+	{
 		cout << name << endl;
 	}
 
@@ -58,26 +60,46 @@ int main() {
 	contessa.income();
 
 	// throws exception, it is duke's turn now
-	assassin.income();
+	try
+	{
+		assassin.income();
+	}
+	catch (exception &e)
+	{
+		cout << e.what() << endl;
+	}
 
 	duke.income();
 	assassin.foreign_aid();
-
 	// throws exception, the last operation duke performed
 	// is income, which cannot be blocked by any role
-	captain.block(duke);
+	try
+	{
+		captain.block(duke);
+	}
+	catch (exception &e)
+	{
+		cout << e.what() << endl;
+	}
 
-	cout << duke.coins() << endl; // prints 2
+	cout << duke.coins() << endl;	  // prints 2
 	cout << assassin.coins() << endl; // prints 3
 
 	// throws exception, the last operation duke performed
 	// is foreign aid, which cannot be blocked by contessa
-	contessa.block(assassin);
+	try
+	{
+		contessa.block(assassin);
+	}
+	catch (exception &e)
+	{
+		cout << e.what() << endl;
+	}
 
 	duke.block(assassin);
 	cout << assassin.coins() << endl; // prints 1
 
-	ambassador.transfer(duke, assassin); //transfers 1 coin from duke to assassin
+	ambassador.transfer(duke, assassin); // transfers 1 coin from duke to assassin
 	captain.foreign_aid();
 	contessa.foreign_aid();
 
@@ -91,13 +113,15 @@ int main() {
 	// no exception, assassin can coup with only 3 coins
 	assassin.coup(duke);
 
+	cout << "-----------" << endl;
+
 	players = game_1.players();
 	/*
 		prints:
-		Yossi
-		Meirav
-		Reut
-		Gilad
+			Yossi
+			Meirav
+			Reut
+			Gilad
 	*/
 	for (string name : players)
 	{
@@ -106,18 +130,19 @@ int main() {
 
 	contessa.block(assassin);
 
+	cout << "-----------" << endl;
+
 	players = game_1.players();
 	/*
 		prints:
-		Moshe
-		Yossi
-		Meirav
-		Reut
-		Gilad
+			Moshe
+			Yossi
+			Meirav
+			Reut
+			Gilad
 	*/
 	for (string name : players)
 	{
 		cout << name << endl;
 	}
 }
-

@@ -1,7 +1,35 @@
 #include "Ambassador.hpp"
-using namespace coup;
-
-std::string role()
+#include <iostream>
+namespace coup
 {
-    return "Ambassador";
+    std::string Ambassador::role()
+    {
+        return "Ambassador";
+    }
+
+    void Ambassador::transfer(Player &player1, Player &player2)
+    {
+        checkTurn();
+        checkMustCoup();
+        if (player1.coins() == 0)
+        {
+            throw std::invalid_argument("Error cant transfer coins from this player ! " + role() + " " + _name);
+        }
+        player1.coins()--;
+        player2.coins()++;
+        game->endTurn(this);
+    }
+
+    void Ambassador::block(Player &player)
+    {
+        if (player.getActionOp().action != STEAL)
+        {
+            throw std::invalid_argument("Error Ambassador can only block Steal " + role() + " " + _name);
+        }
+
+        player.getActionOp().p1->coins() += 2;
+        player.coins() -= 2;
+        player.initAction();
+    }
+
 }

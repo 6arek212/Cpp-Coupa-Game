@@ -1,17 +1,21 @@
 #include "Contessa.hpp"
-using namespace coup;
-
-std::string role()
+#include <iostream>
+namespace coup
 {
-    return "Contessa";
-}
 
-void block(const Player &player)
-{
-    if (player.lastAction != ASSASSINATE)
+    std::string Contessa::role()
     {
-        throw "Contessa can only block Assassiantion";
+        return "Contessa";
     }
 
-    
+    void Contessa::block(Player &player)
+    {
+        if (player.getActionOp().action != ASSASSINATE)
+        {
+            throw std::invalid_argument("Contessa can only block Assassiantion !" + role() + " " + _name);
+        }
+
+        game->uncoup(player.getActionOp().p1);
+        player.initAction();
+    }
 }

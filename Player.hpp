@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Game.hpp"
 #include <string>
 #include <vector>
-#include "Game.hpp"
 
 namespace coup
 {
@@ -13,19 +13,27 @@ namespace coup
         Game *game;
         std::string _name;
         int _coins;
-        Action lastAction;
+        int playerIndex;
+        ActionOp lastAction;
 
     protected:
-        void checkTurn();
+        void checkMustCoup();
 
     public:
         Player(Game &game, std::string name);
-        virtual void income();
-        virtual void foreign_aid();
-        virtual void coup(const Player &player);
-        virtual int coins();
+        void income();
+        void foreign_aid();
+        int &coins();
+        virtual void coup(Player &player);
         virtual std::string role() = 0;
         friend std::ostream &operator<<(std::ostream &out, const Player &player);
+
+        int getPlayerIndex() const { return this->playerIndex; }
+        void setPlayerIndex(int val) { this->playerIndex = val; }
+        std::string getName() { return _name; }
+        const ActionOp &getActionOp() const;
+        void initAction();
+        void checkTurn();
     };
 
 }

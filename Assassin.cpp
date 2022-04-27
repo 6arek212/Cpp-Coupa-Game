@@ -1,7 +1,23 @@
 #include "Assassin.hpp"
-using namespace coup;
+#include "iostream"
 
-std::string role()
+namespace coup
 {
-    return "Assassin";
+    std::string Assassin::role()
+    {
+        return "Assassin";
+    }
+
+    void Assassin::coup(Player &player) 
+    {
+        checkTurn();
+        if (coins() < 3)
+        {
+            throw std::invalid_argument("Error Assassin can coup with 3 coins " + _name);
+        }
+        game->couped(&player);
+        coins() -= 3;
+        lastAction = ActionOp(ASSASSINATE, &player);
+        game->endTurn(this);
+    }
 }
