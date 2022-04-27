@@ -13,12 +13,18 @@ namespace coup
             throw "Error no players !";
         }
     }
-
+    
     bool compareFun(Player *p1, Player *p2)
     {
         return p1->getPlayerIndex() < p2->getPlayerIndex();
     }
 
+
+    /**
+     * @brief remove the p2 player from the current game 
+     * 
+     * @param p2 Player to remove
+     */
     void Game::couped(Player *p2)
     {
         Player *temp = _players[(size_t)_turn];
@@ -30,6 +36,11 @@ namespace coup
         }
     }
 
+    /**
+     * @brief re-join this p2 player to the game 
+     * 
+     * @param p2 Player 
+     */
     void Game::uncoup(Player *p2)
     {
         Player *temp = _players[(size_t)_turn];
@@ -43,6 +54,11 @@ namespace coup
         }
     }
 
+
+    /**
+     * @brief addes a new player to the list of players
+     * @param player 
+     */
     void Game::addPlayer(Player &player)
     {
         if (this->hasStarted)
@@ -58,12 +74,27 @@ namespace coup
         player.setPlayerIndex((int)(_players.size() - 1));
     }
 
+
+
+    /**
+     * @brief check if its this players turn
+     * 
+     * @param player 
+     * @return true this player turn 
+     * @return false its not his turn 
+     */
     bool Game::isItMyTurn(Player &player)
     {
         hasPlayers();
         return _players[(size_t)_turn] == &player;
     }
 
+
+    /**
+     * @brief move the turn to the next player 
+     * 
+     * @param p 
+     */
     void Game::endTurn(Player *p)
     {
         p->checkTurn();
@@ -75,7 +106,10 @@ namespace coup
             hasStarted = true;
         }
     }
-
+    
+    /**
+     * @return std::vector<std::string> list of players names
+     */
     std::vector<std::string> Game::players() const
     {
         std::vector<std::string> p;
@@ -86,12 +120,22 @@ namespace coup
         return p;
     }
 
+    /**
+     * @brief return the current players name
+     * 
+     * @return std::string 
+     */
     std::string Game::turn()
     {
         hasPlayers();
         return _players[(size_t)_turn]->getName();
     }
 
+    /**
+     * @brief return the winner name if the game is finished otherwise it will throw an exception 
+     * 
+     * @return std::string the winners name
+     */
     std::string Game::winner() const
     {
         hasPlayers();

@@ -7,6 +7,11 @@ namespace coup
         return "Captin";
     }
 
+    /**
+     * @brief steals 2 coins from another player , this action can be blocked by a Captin or an Ambassador
+     * 
+     * @param player 
+     */
     void Captain::steal(Player &player)
     {
         if (this == &player)
@@ -26,6 +31,11 @@ namespace coup
         game->endTurn(this);
     }
 
+    /**
+     * @brief block this player if his last action is stealing !
+     * 
+     * @param player 
+     */
     void Captain::block(Player &player)
     {
         if (this == &player)

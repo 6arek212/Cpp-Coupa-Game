@@ -8,6 +8,12 @@ namespace coup
         return "Contessa";
     }
 
+
+    /**
+     * @brief contessa can block an assassin , meaning the assassinated played will return to the game
+     * 
+     * @param player 
+     */
     void Contessa::block(Player &player)
     {
         if (this == &player)

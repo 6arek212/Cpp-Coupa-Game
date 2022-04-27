@@ -23,6 +23,10 @@ namespace coup
         this->game->addPlayer(*this);
     }
 
+    /**
+     * @brief check if it your turn to play
+     * 
+     */
     void Player::checkTurn()
     {
 
@@ -32,6 +36,10 @@ namespace coup
         }
     }
 
+    /**
+     * @brief checks wheither you must coup or not
+     * 
+     */
     void Player::checkMustCoup()
     {
         if (this->_coins >= tenCoins)
@@ -40,6 +48,10 @@ namespace coup
         }
     }
 
+    /**
+     * @brief addes one coin to this player
+     * 
+     */
     void Player::income()
     {
         checkTurn();
@@ -49,6 +61,10 @@ namespace coup
         game->endTurn(this);
     }
 
+    /**
+     * @brief addes two coins to this player , this action can be blocked by a duke
+     * 
+     */
     void Player::foreign_aid()
     {
         checkTurn();
@@ -58,6 +74,12 @@ namespace coup
         game->endTurn(this);
     }
 
+
+    /**
+     * @brief coup another player , this action needs 7 coins to perform 
+     * 
+     * @param player 
+     */
     void Player::coup(Player &player)
     {
         if (this == &player)

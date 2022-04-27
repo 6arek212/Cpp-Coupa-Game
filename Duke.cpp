@@ -2,6 +2,10 @@
 #include <iostream>
 using namespace coup;
 
+/**
+ * @brief addes 3 coins to this duke , this action cant be blocked !
+ *
+ */
 void Duke::tax()
 {
     checkTurn();
@@ -16,6 +20,11 @@ std::string Duke::role() const
     return "Duke";
 }
 
+/**
+ * @brief block a forign aid action of this player
+ *
+ * @param player
+ */
 void Duke::block(Player &player)
 {
     if (this == &player)

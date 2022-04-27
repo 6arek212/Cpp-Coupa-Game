@@ -8,6 +8,11 @@ namespace coup
         return "Assassin";
     }
 
+    /**
+     * @brief coup a player with 3 coins only !
+     * 
+     * @param player 
+     */
     void Assassin::coup(Player &player)
     {
         if (this == &player)

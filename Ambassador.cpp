@@ -6,7 +6,13 @@ namespace coup
     {
         return "Ambassador";
     }
-
+    
+    /**
+     * @brief transfer one coin from player1 to player2
+     * 
+     * @param player1 
+     * @param player2 
+     */
     void Ambassador::transfer(Player &player1, Player &player2)
     {
         checkTurn();
@@ -21,6 +27,12 @@ namespace coup
         game->endTurn(this);
     }
 
+
+    /**
+     * @brief block a stealing player 
+     * 
+     * @param player 
+     */
     void Ambassador::block(Player &player)
     {
         if (this == &player)
