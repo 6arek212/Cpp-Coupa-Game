@@ -14,6 +14,11 @@ namespace coup
      */
     void Captain::steal(Player &player)
     {
+        if (!hasSameGame(player))
+        {
+            throw std::invalid_argument("These players are not in the same game !");
+        }
+        
         if (this == &player)
         {
             throw std::invalid_argument("Error , you cant steal your self");
@@ -39,6 +44,11 @@ namespace coup
      */
     void Captain::block(Player &player)
     {
+        if (!hasSameGame(player))
+        {
+            throw std::invalid_argument("These players are not in the same game !");
+        }
+
         if (this == &player)
         {
             throw std::invalid_argument("Error , you cant block your self");

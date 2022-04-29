@@ -32,6 +32,7 @@ namespace coup
         virtual std::string role() const { return "Default Role"; };
         friend std::ostream &operator<<(std::ostream &out, const Player &player);
 
+        bool hasSameGame(Player &p);
         int getPlayerIndex() const { return this->playerIndex; }
         void setPlayerIndex(int val) { this->playerIndex = val; }
         std::string getName() { return _name; }

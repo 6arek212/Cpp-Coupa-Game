@@ -15,6 +15,11 @@ namespace coup
      */
     void Ambassador::transfer(Player &player1, Player &player2)
     {
+        if (!hasSameGame(player1) || !hasSameGame(player2))
+        {
+            throw std::invalid_argument("These players are not in the same game !");
+        }
+
         checkTurn();
         checkMustCoup();
         if (player1.coins() == 0)
@@ -34,6 +39,11 @@ namespace coup
      */
     void Ambassador::block(Player &player)
     {
+        if (!hasSameGame(player))
+        {
+            throw std::invalid_argument("These players are not in the same game !");
+        }
+
         if (this == &player)
         {
             throw std::invalid_argument("Error , you cant block your self");

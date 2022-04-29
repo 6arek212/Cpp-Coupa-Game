@@ -81,6 +81,11 @@ namespace coup
      */
     void Player::coup(Player &player)
     {
+        if (!hasSameGame(player))
+        {
+            throw std::invalid_argument("These players are not in the same game !");
+        }
+
         if (this == &player)
         {
             throw std::invalid_argument("Error , you cant coup your self");
@@ -109,6 +114,11 @@ namespace coup
     void Player::initAction()
     {
         this->lastAction = ActionOp();
+    }
+
+    bool Player::hasSameGame(Player &p)
+    {
+        return p.game == this->game;
     }
 
 }

@@ -8,14 +8,18 @@ namespace coup
         return "Contessa";
     }
 
-
     /**
      * @brief contessa can block an assassin , meaning the assassinated played will return to the game
-     * 
-     * @param player 
+     *
+     * @param player
      */
     void Contessa::block(Player &player)
     {
+        if (!hasSameGame(player))
+        {
+            throw std::invalid_argument("These players are not in the same game !");
+        }
+
         if (this == &player)
         {
             throw std::invalid_argument("Error , you cant block your self");
