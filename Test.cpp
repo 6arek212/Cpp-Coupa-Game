@@ -45,23 +45,24 @@ TEST_CASE("Check Actions Contessa/Ambassador/Captain")
     CHECK_THROWS(ambassador.block(captin));
     CHECK_THROWS(captin.block(contessa));
 
-    CHECK_THROWS(captin.steal(contessa));
+    CHECK_NOTHROW(captin.steal(contessa));
     CHECK_THROWS(captin.steal(ambassador));
-    CHECK_NOTHROW(captin.foreign_aid());
+    CHECK_THROWS(captin.foreign_aid());
 
-    CHECK_NOTHROW(ambassador.transfer(contessa, captin));
-    CHECK(captin.coins() == 4);
+    CHECK_THROWS(ambassador.transfer(contessa, captin));
+    CHECK_NOTHROW(ambassador.foreign_aid());
+    CHECK(captin.coins() == 2);
 
     CHECK_NOTHROW(contessa.foreign_aid());
 
     CHECK_NOTHROW(captin.steal(contessa));
-    CHECK(captin.coins() == 6);
+    CHECK(captin.coins() == 4);
 
     CHECK_NOTHROW(ambassador.block(captin));
     CHECK_THROWS(ambassador.block(captin));
 
-    CHECK(captin.coins() == 4);
-    CHECK(ambassador.coins() == 1);
+    CHECK(captin.coins() == 2);
+    CHECK(ambassador.coins() == 3);
     CHECK(contessa.coins() == 2);
 }
 

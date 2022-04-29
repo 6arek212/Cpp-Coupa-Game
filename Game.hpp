@@ -26,12 +26,14 @@ namespace coup
         Action action;
         Player *p1;
         Player *p2;
+        int coins;
 
-        ActionOp(Action action = NONE, Player *p1 = NULL, Player *p2 = NULL)
+        ActionOp(Action action = NONE, Player *p1 = NULL, Player *p2 = NULL, int coins = 0)
         {
             this->action = action;
             this->p1 = p1;
             this->p2 = p2;
+            this->coins = coins;
         }
     };
 
@@ -49,7 +51,7 @@ namespace coup
         void couped(Player *p2);
         void uncoup(Player *p2);
         void hasPlayers() const;
-        
+
         std::vector<std::string> players() const;
         std::string turn();
         std::string winner() const;

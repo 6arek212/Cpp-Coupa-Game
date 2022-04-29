@@ -10,8 +10,8 @@ namespace coup
 
     /**
      * @brief coup a player with 3 coins only !
-     * 
-     * @param player 
+     *
+     * @param player
      */
     void Assassin::coup(Player &player)
     {
@@ -24,9 +24,19 @@ namespace coup
         {
             throw std::invalid_argument("Error Assassin can coup with 3 coins " + _name);
         }
+
+        if (coins() >= sevenCoins)
+        {
+            coins() -= sevenCoins;
+            lastAction = ActionOp(COUP, &player);
+        }
+        else
+        {
+            coins() -= threeCoins;
+            lastAction = ActionOp(ASSASSINATE, &player);
+        }
+
         game->couped(&player);
-        coins() -= 3;
-        lastAction = ActionOp(ASSASSINATE, &player);
         game->endTurn(this);
     }
 }

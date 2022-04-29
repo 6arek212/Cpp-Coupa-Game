@@ -6,12 +6,12 @@ namespace coup
     {
         return "Ambassador";
     }
-    
+
     /**
      * @brief transfer one coin from player1 to player2
-     * 
-     * @param player1 
-     * @param player2 
+     *
+     * @param player1
+     * @param player2
      */
     void Ambassador::transfer(Player &player1, Player &player2)
     {
@@ -27,11 +27,10 @@ namespace coup
         game->endTurn(this);
     }
 
-
     /**
-     * @brief block a stealing player 
-     * 
-     * @param player 
+     * @brief block a stealing player
+     *
+     * @param player
      */
     void Ambassador::block(Player &player)
     {
@@ -48,8 +47,8 @@ namespace coup
             throw std::invalid_argument("Error Ambassador can only block Steal " + role() + " " + _name);
         }
 
-        player.getActionOp().p1->coins() += 2;
-        player.coins() -= 2;
+        player.getActionOp().p1->coins() += player.getActionOp().coins;
+        player.coins() -= player.getActionOp().coins;
         player.initAction();
     }
 
