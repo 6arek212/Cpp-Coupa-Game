@@ -15,11 +15,12 @@ namespace coup
      */
     void Assassin::coup(Player &player)
     {
+        isCoupedCheck(player);
         if (!hasSameGame(player))
         {
             throw std::invalid_argument("These players are not in the same game !");
         }
-        
+
         if (this == &player)
         {
             throw std::invalid_argument("Error , you cant coup your self");
@@ -42,6 +43,7 @@ namespace coup
         }
 
         game->couped(&player);
+        player.setCouped(true);
         game->endTurn(this);
     }
 }

@@ -13,16 +13,15 @@ namespace coup
             throw "Error no players !";
         }
     }
-    
+
     bool compareFun(Player *p1, Player *p2)
     {
         return p1->getPlayerIndex() < p2->getPlayerIndex();
     }
 
-
     /**
-     * @brief remove the p2 player from the current game 
-     * 
+     * @brief remove the p2 player from the current game
+     *
      * @param p2 Player to remove
      */
     void Game::couped(Player *p2)
@@ -37,9 +36,9 @@ namespace coup
     }
 
     /**
-     * @brief re-join this p2 player to the game 
-     * 
-     * @param p2 Player 
+     * @brief re-join this p2 player to the game
+     *
+     * @param p2 Player
      */
     void Game::uncoup(Player *p2)
     {
@@ -52,15 +51,20 @@ namespace coup
         {
             _turn = (++_turn) % (int)_players.size();
         }
+        p2->setCouped(false);
     }
-
 
     /**
      * @brief addes a new player to the list of players
-     * @param player 
+     * @param player
      */
     void Game::addPlayer(Player &player)
     {
+        if (_players.size() == MAX_PLAYER_COUNT)
+        {
+            throw std::invalid_argument("Error we have max players capacity");
+        }
+
         if (this->hasStarted)
         {
             throw std::invalid_argument("Cant add playes, the game already started !");
@@ -74,14 +78,12 @@ namespace coup
         player.setPlayerIndex((int)(_players.size() - 1));
     }
 
-
-
     /**
      * @brief check if its this players turn
-     * 
-     * @param player 
-     * @return true this player turn 
-     * @return false its not his turn 
+     *
+     * @param player
+     * @return true this player turn
+     * @return false its not his turn
      */
     bool Game::isItMyTurn(Player &player)
     {
@@ -89,14 +91,17 @@ namespace coup
         return _players[(size_t)_turn] == &player;
     }
 
-
     /**
-     * @brief move the turn to the next player 
-     * 
-     * @param p 
+     * @brief move the turn to the next player
+     *
+     * @param p
      */
     void Game::endTurn(Player *p)
     {
+        if (!hasStarted && _players.size() <= 1)
+        {
+            throw std::invalid_argument("No enough players");
+        }
         p->checkTurn();
         hasPlayers();
         _turn = (_turn + 1) % (int)_players.size();
@@ -106,7 +111,7 @@ namespace coup
             hasStarted = true;
         }
     }
-    
+
     /**
      * @return std::vector<std::string> list of players names
      */
@@ -122,8 +127,8 @@ namespace coup
 
     /**
      * @brief return the current players name
-     * 
-     * @return std::string 
+     *
+     * @return std::string
      */
     std::string Game::turn()
     {
@@ -132,12 +137,16 @@ namespace coup
     }
 
     /**
-     * @brief return the winner name if the game is finished otherwise it will throw an exception 
-     * 
+     * @brief return the winner name if the game is finished otherwise it will throw an exception
+     *
      * @return std::string the winners name
      */
     std::string Game::winner() const
     {
+        if (!this->hasStarted)
+        {
+            throw std::invalid_argument("The game not started yet");
+        }
         hasPlayers();
         if (_players.size() > 1)
         {

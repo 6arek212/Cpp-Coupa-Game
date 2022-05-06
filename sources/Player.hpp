@@ -19,6 +19,7 @@ namespace coup
         int _coins;
         int playerIndex;
         ActionOp lastAction;
+        bool isCouped;
 
     protected:
         void checkMustCoup() const;
@@ -39,6 +40,17 @@ namespace coup
         const ActionOp &getActionOp() const;
         void initAction();
         void checkTurn();
+        static void isCoupedCheck(Player &player);
+
+        void setCouped(bool val)
+        {
+            this->isCouped = val;
+        }
+
+        bool getIsCouped()
+        {
+            return this->isCouped;
+        }
     };
 
 }

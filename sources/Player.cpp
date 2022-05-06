@@ -16,6 +16,7 @@ namespace coup
 
     Player::Player(Game &game, std::string &name)
     {
+        this->isCouped = false;
         this->_coins = 0;
         this->_name = name;
         this->game = &game;
@@ -81,6 +82,7 @@ namespace coup
      */
     void Player::coup(Player &player)
     {
+        isCoupedCheck(player);
         if (!hasSameGame(player))
         {
             throw std::invalid_argument("These players are not in the same game !");
@@ -98,6 +100,7 @@ namespace coup
         game->couped(&player);
         _coins -= sevenCoins;
         lastAction = ActionOp(COUP, &player);
+        player.setCouped(true);
         game->endTurn(this);
     }
 
@@ -119,6 +122,14 @@ namespace coup
     bool Player::hasSameGame(Player &p)
     {
         return p.game == this->game;
+    }
+
+    void Player::isCoupedCheck(Player &player) 
+    {
+        if (player.getIsCouped())
+        {
+            throw invalid_argument("this player has been already couped !");
+        }
     }
 
 }

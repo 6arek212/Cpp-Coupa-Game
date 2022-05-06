@@ -15,6 +15,7 @@ namespace coup
      */
     void Contessa::block(Player &player)
     {
+        isCoupedCheck(player);
         if (!hasSameGame(player))
         {
             throw std::invalid_argument("These players are not in the same game !");

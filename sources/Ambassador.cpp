@@ -1,49 +1,47 @@
-#include "Captain.hpp"
+#include "Ambassador.hpp"
 #include <iostream>
 namespace coup
 {
-    std::string Captain::role() const
+    std::string Ambassador::role() const
     {
-        return "Captin";
+        return "Ambassador";
     }
 
     /**
-     * @brief steals 2 coins from another player , this action can be blocked by a Captin or an Ambassador
+     * @brief transfer one coin from player1 to player2
      *
-     * @param player
+     * @param player1
+     * @param player2
      */
-    void Captain::steal(Player &player)
+    void Ambassador::transfer(Player &player1, Player &player2)
     {
-        if (!hasSameGame(player))
+        isCoupedCheck(player1);
+        isCoupedCheck(player2);
+        if (!hasSameGame(player1) || !hasSameGame(player2))
         {
             throw std::invalid_argument("These players are not in the same game !");
         }
-        
-        if (this == &player)
-        {
-            throw std::invalid_argument("Error , you cant steal your self");
-        }
+
         checkTurn();
         checkMustCoup();
-        if (player.coins() == 0)
+        if (player1.coins() == 0)
         {
-            throw std::invalid_argument("Error , can't steal from this player !");
+            throw std::invalid_argument("Error cant transfer coins from this player ! " + role() + " " + _name);
         }
-
-        int coinsToSteal = player.coins() < 2 ? 1 : 2;
-        player.coins() -= coinsToSteal;
-        coins() += coinsToSteal;
-        lastAction = ActionOp(STEAL, &player, NULL, coinsToSteal);
+        player1.coins()--;
+        player2.coins()++;
+        lastAction = ActionOp(TRANSFER, &player1, &player2);
         game->endTurn(this);
     }
 
     /**
-     * @brief block this player if his last action is stealing !
+     * @brief block a stealing player
      *
      * @param player
      */
-    void Captain::block(Player &player)
+    void Ambassador::block(Player &player)
     {
+        isCoupedCheck(player);
         if (!hasSameGame(player))
         {
             throw std::invalid_argument("These players are not in the same game !");
@@ -57,14 +55,14 @@ namespace coup
         {
             throw std::invalid_argument("Cant block him !");
         }
-
         if (player.getActionOp().action != STEAL)
         {
-            throw std::invalid_argument("Error captain can only block Steal !" + role() + " " + _name);
+            throw std::invalid_argument("Error Ambassador can only block Steal " + role() + " " + _name);
         }
 
         player.getActionOp().p1->coins() += player.getActionOp().coins;
         player.coins() -= player.getActionOp().coins;
         player.initAction();
     }
+
 }

@@ -40,6 +40,7 @@ namespace coup
     class Game
     {
     private:
+        static const int MAX_PLAYER_COUNT = 6;
         std::vector<Player *> _players;
         int _turn = -1;
         bool hasStarted = false;
